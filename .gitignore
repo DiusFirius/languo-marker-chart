@@ -1,0 +1,24 @@
+# Languo Marker Chart - Git Ignore File
+
+# Artifacts folder
+artifacts/
+
+# OS files
+.DS_Store
+Thumbs.db
+install-pyenv-win.ps1
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+.cache/
