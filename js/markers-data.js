@@ -247,7 +247,6 @@ const markers = [
     { id: "LC-191", color: "#B8B098" },    // Position 237 (Row 12, Col 18)
     { id: "LC-192", color: "#B8B898" },    // Position 238 (Row 12, Col 19)
     { id: "LC-193", color: "#C8C8D8" },     // Position 239 (Row 12, Col 20)
-    { id: "LC-193", color: "#C8C8D8" }     // Position 239 (Row 12, Col 20)
 ];
 
 /**
