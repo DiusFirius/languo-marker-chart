@@ -24,6 +24,7 @@ Interactive web application for browsing and searching Languo 240 acrylic marker
 
 ## Development Approach
 - Work must be done in separate branches (not the main)
+- Do not commit changes on your own
 
 ## Recent Work
 - Project plan revised to version 2.0 (approved)

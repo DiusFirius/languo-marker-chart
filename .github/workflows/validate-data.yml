@@ -1,0 +1,53 @@
+name: Validate Marker Data
+
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Validate marker data
+      run: |
+        cd js
+        node -e "
+        const fs = require('fs');
+        const content = fs.readFileSync('markers-data.js', 'utf8');
+        eval(content);
+
+        console.log('Running marker data validation...');
+        console.log('=====================================');
+
+        const result = validateMarkerData();
+
+        console.log('Marker Count:', result.markerCount);
+        console.log('Unique IDs:', result.uniqueIds);
+        console.log('Validation Success:', result.success);
+
+        if (result.errors.length > 0) {
+          console.log('\n❌ VALIDATION FAILED');
+          console.log('\nErrors found:');
+          result.errors.forEach(err => console.log('  -', err));
+          process.exit(1);
+        }
+
+        if (result.warnings.length > 0) {
+          console.log('\n⚠️  Warnings:');
+          result.warnings.forEach(warn => console.log('  -', warn));
+        }
+
+        console.log('\n✅ All validation checks passed!');
+        console.log('=====================================');
+        "
