@@ -36,5 +36,14 @@ export default [
         module: "readonly"
       }
     }
+  },
+  {
+    files: ["js/app.js"],
+    languageOptions: {
+      globals: {
+        markers: "readonly",
+        validateMarkerData: "readonly"
+      }
+    }
   }
 ];
