@@ -3,4 +3,419 @@
  * Main stylesheet for the application
  */
 
-/* Styles to be implemented */
+/* ==========================================================================
+   CSS Custom Properties
+   ========================================================================== */
+
+:root {
+    /* Colors */
+    --color-background: #f5f5f5;
+    --color-surface: #ffffff;
+    --color-text-primary: #333333;
+    --color-text-secondary: #666666;
+    --color-border: #dddddd;
+    --color-focus: #0066cc;
+    --color-warning-bg: #fff3cd;
+    --color-warning-text: #856404;
+
+    /* Grid sizing */
+    --grid-columns: 20;
+    --grid-rows: 12;
+    --grid-gap: 2px;
+    --cell-size: 40px;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Typography */
+    --font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu, sans-serif;
+    --font-size-base: 16px;
+    --font-size-sm: 0.875rem;
+    --font-size-xs: 0.75rem;
+    --font-size-xxs: 0.625rem;
+
+    /* Focus */
+    --focus-outline-width: 3px;
+    --focus-outline-offset: 2px;
+}
+
+/* ==========================================================================
+   CSS Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: var(--font-size-base);
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   Typography & Base Styles
+   ========================================================================== */
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ==========================================================================
+   Layout - Header
+   ========================================================================== */
+
+header {
+    background-color: var(--color-surface);
+    padding: var(--spacing-md);
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+}
+
+header .subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Layout - Main Content
+   ========================================================================== */
+
+main {
+    flex: 1;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* ==========================================================================
+   Layout - Footer
+   ========================================================================== */
+
+footer {
+    background-color: var(--color-surface);
+    padding: var(--spacing-md);
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+}
+
+footer p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Search Section
+   ========================================================================== */
+
+.search-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search-container input[type="search"] {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    padding-right: 2.5rem;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    font-size: var(--font-size-base);
+    transition: border-color 0.2s ease;
+}
+
+.search-container input[type="search"]:focus {
+    outline: none;
+    border-color: var(--color-focus);
+}
+
+.search-container input[type="search"]::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.clear-button {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    font-size: 1.25rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.clear-button:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.clear-button:focus {
+    outline: var(--focus-outline-width) solid var(--color-focus);
+    outline-offset: var(--focus-outline-offset);
+}
+
+.search-results {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    min-height: 1.5rem;
+}
+
+.search-results.warning {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   Grid Section
+   ========================================================================== */
+
+.grid-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.loading-message {
+    padding: var(--spacing-xl);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   Marker Grid - Core Layout (20x12)
+   CRITICAL: Column and row count must NEVER change at any breakpoint
+   ========================================================================== */
+
+.marker-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
+    gap: var(--grid-gap);
+    background-color: var(--color-surface);
+    padding: var(--spacing-sm);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+}
+
+/* ==========================================================================
+   Marker Cell Styles
+   ========================================================================== */
+
+.marker-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xxs);
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: default;
+    transition: transform 0.1s ease;
+    user-select: none;
+    overflow: hidden;
+    text-align: center;
+    word-break: break-all;
+    padding: 2px;
+}
+
+.marker-cell:focus {
+    outline: var(--focus-outline-width) solid var(--color-focus);
+    outline-offset: var(--focus-outline-offset);
+    z-index: 1;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   CRITICAL: Grid always maintains 20 columns and 12 rows
+   ========================================================================== */
+
+/* Mobile (default): Small cells with horizontal scroll */
+/* Cell size: 40px, Gap: 2px */
+
+/* Tablet: 768px and up */
+@media (width >= 768px) {
+    :root {
+        --grid-gap: 3px;
+        --cell-size: 52px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .marker-cell {
+        font-size: var(--font-size-xs);
+    }
+
+    main {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Desktop: 1024px and up */
+@media (width >= 1024px) {
+    :root {
+        --grid-gap: 4px;
+        --cell-size: 60px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .marker-cell {
+        font-size: var(--font-size-sm);
+    }
+
+    main {
+        padding: var(--spacing-xl);
+    }
+}
+
+/* Large Desktop: 1440px and up */
+@media (width >= 1440px) {
+    :root {
+        --cell-size: 68px;
+    }
+}
+
+/* ==========================================================================
+   Blink Animation (for search results)
+   ========================================================================== */
+
+@keyframes marker-blink {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: scale(1.1);
+    }
+}
+
+.marker-cell.blink {
+    animation: marker-blink 0.6s ease-in-out infinite;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .marker-cell.blink {
+        animation: none;
+        outline: 3px solid var(--color-focus);
+        outline-offset: 2px;
+    }
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Hidden attribute support */
+[hidden] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Focus Styles (Accessibility)
+   ========================================================================== */
+
+:focus-visible {
+    outline: var(--focus-outline-width) solid var(--color-focus);
+    outline-offset: var(--focus-outline-offset);
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .search-section {
+        display: none;
+    }
+
+    .marker-grid {
+        box-shadow: none;
+    }
+
+    .marker-cell.blink {
+        animation: none;
+    }
+}
