@@ -1,0 +1,22 @@
+{
+  "name": "languo-marker-chart",
+  "version": "1.0.0",
+  "description": "Interactive web application for browsing and searching Languo 240 acrylic marker colors",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "htmlhint \"**/*.html\" --ignore \"node_modules/**\"",
+    "lint:css": "stylelint \"**/*.css\" --ignore-pattern \"node_modules/**\"",
+    "lint:js": "eslint \"**/*.js\" --ignore-pattern \"node_modules/**\""
+  },
+  "devDependencies": {
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
+    "htmlhint": "^1.1.4",
+    "stylelint": "^16.12.0",
+    "stylelint-config-standard": "^37.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

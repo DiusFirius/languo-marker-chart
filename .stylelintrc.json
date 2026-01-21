@@ -1,0 +1,11 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "no-empty-source": null,
+    "comment-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "length-zero-no-unit": true,
+    "color-hex-length": "long",
+    "selector-class-pattern": null
+  }
+}

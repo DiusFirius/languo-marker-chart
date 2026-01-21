@@ -1,5 +1,8 @@
 # Languo Marker Chart - Git Ignore File
 
+# Dependencies
+node_modules/
+
 # Artifacts folder
 artifacts/
 
