@@ -26,10 +26,7 @@ Interactive web application for browsing and searching Languo 240 acrylic marker
 - Work must be done in separate branches (not the main)
 - Do not commit changes on your own
 - Lints should pass
-
-## Recent Work
-- Project plan revised to version 2.0 (approved)
-- File structure created with placeholders
+- Based on done work, output commit message based on made changes
 
 ## Next Steps
 See `artifacts/PROJECT_DECOMPOSITION.md` for detailed task breakdown and current progress.
